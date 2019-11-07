@@ -35,19 +35,19 @@ def main():
     request(pixels)
 
     while True:  # making a loop 
-        if keyboard.is_pressed('d'):  # if key 'q' is pressed 
+        if keyboard.is_pressed('d'):  
             pixels = movePixels(pixels, 0)
             request(pixels)
 
-        if keyboard.is_pressed('a'):  # if key 'q' is pressed 
+        if keyboard.is_pressed('a'):  
             pixels = movePixels(pixels, 1)
             request(pixels)
 
-        if keyboard.is_pressed('w'):  # if key 'q' is pressed 
+        if keyboard.is_pressed('w'):  
             pixels = movePixels(pixels, 2)
             request(pixels)
 
-        if keyboard.is_pressed('s'):  # if key 'q' is pressed 
+        if keyboard.is_pressed('s'):  
             pixels = movePixels(pixels, 3)
             request(pixels)
   
