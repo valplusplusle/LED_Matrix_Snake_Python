@@ -1,10 +1,18 @@
 import keyboard  # using module keyboard
 import requests
 from copy import deepcopy
+import time
+import pickle
 
 def request(pixels):
     requests.post('http://192.168.178.91/display', json={"pixels": pixels})
     print(pixels)
+
+def gameOver():
+    print("error")
+    pixels = pickle.load(open( "./skullarray", "rb"))
+    request(pixels)
+    time.sleep(10)
 
 def movePixels(pixels, direction):
     first = deepcopy(pixels[0])
@@ -24,33 +32,44 @@ def movePixels(pixels, direction):
     newPixels[1]["G"]=0
     newPixels[1]["B"]=255
     return newPixels
-        
-
 
 def main():
-    x=0
-    y=0
+    x = 0
+    y = 0
+    direction = 0
 
     pixels = [{"X": x, "Y":y, "R":255, "G":0, "B":0}]
     request(pixels)
 
     while True:  # making a loop 
+        pixels = movePixels(pixels, direction)
+        request(pixels) 
+
         if keyboard.is_pressed('d'):  
-            pixels = movePixels(pixels, 0)
-            request(pixels)
+            if direction != 1:
+                direction = 0
+            else:
+                gameOver()
 
         if keyboard.is_pressed('a'):  
-            pixels = movePixels(pixels, 1)
-            request(pixels)
+            if direction != 0:
+                direction = 1
+            else:
+                gameOver()
 
         if keyboard.is_pressed('w'):  
-            pixels = movePixels(pixels, 2)
-            request(pixels)
+            if direction != 3:
+                direction = 2
+            else:
+                gameOver()
 
         if keyboard.is_pressed('s'):  
-            pixels = movePixels(pixels, 3)
-            request(pixels)
+            if direction != 2:
+                direction = 3
+            else:
+                gameOver()
+
+        time.sleep(0.05)
   
 if __name__== "__main__":
   main()
-
